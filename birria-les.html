@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birria LES — Lower East Side</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Pacifico&family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal: #16110d;
+    --charcoal-2: #1f1712;
+    --chili: #d62828;
+    --chili-deep: #a81f1f;
+    --marigold: #f2a30f;
+    --teal: #0f766e;
+    --pink: #e0447c;
+    --cream: #f8ecd9;
+    --ink: #241a12;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--charcoal);
+    color: var(--cream);
+    font-family:'Barlow', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color:inherit; }
+  .display{ font-family:'Bungee', cursive; }
+  .script{ font-family:'Pacifico', cursive; }
+  .cond{ font-family:'Barlow Condensed', sans-serif; }
+
+  /* ---------- PAPEL PICADO BANNER ---------- */
+  .picado{
+    display:flex;
+    width:100%;
+    height: 46px;
+    overflow:hidden;
+    background: var(--charcoal-2);
+  }
+  .flag{
+    flex: 1 0 auto;
+    width: 60px;
+    height: 40px;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    margin-top: -2px;
+    position:relative;
+    background-image: radial-gradient(circle, var(--charcoal) 3px, transparent 3.5px);
+    background-size: 14px 14px;
+    background-position: 4px 4px;
+  }
+  .flag:nth-child(6n+1){ background-color: var(--chili); }
+  .flag:nth-child(6n+2){ background-color: var(--marigold); }
+  .flag:nth-child(6n+3){ background-color: var(--teal); }
+  .flag:nth-child(6n+4){ background-color: var(--pink); }
+  .flag:nth-child(6n+5){ background-color: var(--chili); }
+  .flag:nth-child(6n){ background-color: var(--marigold); }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 6vw;
+    background: rgba(22,17,13,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 3px solid var(--marigold);
+  }
+  .brand{ display:flex; align-items:center; gap: 10px; }
+  .brand-badge{
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--chili);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Bungee', cursive; font-size: 14px; color: var(--cream);
+    box-shadow: 0 0 0 3px var(--marigold);
+  }
+  .brand-name{ font-family:'Bungee', cursive; font-size: 16px; letter-spacing: .5px; }
+  .brand-name span{ color: var(--marigold); }
+  .nav-links{ display:flex; gap: 30px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
+  .nav-links a{ text-decoration:none; color: var(--cream); opacity:.75; transition: opacity .2s, color .2s; }
+  .nav-links a:hover{ opacity:1; color: var(--marigold); }
+  @media (max-width: 700px){ .nav-links{ display:none; } }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    padding: 90px 6vw 100px;
+    text-align:center;
+    background:
+      radial-gradient(ellipse at 15% 15%, rgba(214,40,40,0.28), transparent 55%),
+      radial-gradient(ellipse at 85% 25%, rgba(15,118,110,0.25), transparent 50%),
+      var(--charcoal);
+    overflow:hidden;
+  }
+  .badges-row{ display:flex; gap: 12px; justify-content:center; flex-wrap:wrap; margin-bottom: 26px; }
+  .badge{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    display:flex; align-items:center; gap: 6px;
+  }
+  .badge.halal{ background: var(--teal); color: var(--cream); }
+  .badge.fresh{ background: var(--marigold); color: var(--ink); }
+  .badge.spots{ background: var(--pink); color: var(--cream); }
+
+  h1.hero-title{
+    font-family:'Bungee', cursive;
+    font-size: clamp(40px, 8.5vw, 96px);
+    line-height: 1;
+    margin: 10px 0 18px;
+    letter-spacing: 1px;
+  }
+  h1.hero-title .l1{ color: var(--chili); display:block; text-shadow: 4px 4px 0 var(--marigold); }
+  h1.hero-title .l2{ color: var(--cream); display:block; font-size: 0.42em; margin-top: 14px; letter-spacing: 4px; }
+
+  .hero-sub{
+    max-width: 560px;
+    margin: 0 auto 40px;
+    font-size: 17px;
+    line-height: 1.75;
+    color: rgba(248,236,217,0.85);
+  }
+
+  .hero-ctas{ display:flex; gap: 16px; justify-content:center; flex-wrap:wrap; }
+  .btn{
+    font-family:'Barlow Condensed', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-size: 15px;
+    padding: 15px 32px;
+    border-radius: 4px;
+    text-decoration:none;
+    display:inline-block;
+    border: 2px solid transparent;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-chili{ background: var(--chili); color: var(--cream); box-shadow: 0 6px 0 var(--chili-deep); }
+  .btn-chili:hover{ box-shadow: 0 4px 0 var(--chili-deep); }
+  .btn-outline{ border-color: var(--marigold); color: var(--marigold); }
+  .btn-outline:hover{ background: var(--marigold); color: var(--ink); }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 90px 6vw; }
+  .eyebrow{
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--marigold);
+    display:block;
+    margin-bottom: 10px;
+  }
+  h2{
+    font-family:'Bungee', cursive;
+    font-size: clamp(28px, 4.4vw, 46px);
+    margin: 0 0 30px;
+    line-height: 1.15;
+  }
+
+  /* ---------- WHY US ---------- */
+  .why{ background: var(--charcoal-2); border-top: 1px solid rgba(242,163,15,0.15); border-bottom: 1px solid rgba(242,163,15,0.15); }
+  .why-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 26px; }
+  .why-card{
+    background: var(--charcoal);
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    padding: 28px 24px;
+    position:relative;
+  }
+  .why-card .icon{ font-size: 30px; margin-bottom: 14px; display:block; }
+  .why-card h3{ font-family:'Bungee', cursive; font-size: 15px; margin: 0 0 10px; color: var(--marigold); text-transform:uppercase; }
+  .why-card p{ font-size: 14.5px; line-height:1.7; color: rgba(248,236,217,0.75); margin:0; }
+
+  /* ---------- MENU ---------- */
+  .menu-section{ background: var(--charcoal); }
+  .menu-groups{ display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 30px; }
+  .menu-group{
+    background: var(--charcoal-2);
+    border-radius: 10px;
+    padding: 30px 28px;
+    border-top: 5px solid var(--chili);
+  }
+  .menu-group:nth-child(2){ border-top-color: var(--marigold); }
+  .menu-group:nth-child(3){ border-top-color: var(--teal); }
+  .menu-group:nth-child(4){ border-top-color: var(--pink); }
+  .menu-group:nth-child(5){ border-top-color: var(--chili); }
+  .menu-group:nth-child(6){ border-top-color: var(--marigold); }
+  .menu-group h3{
+    font-family:'Bungee', cursive;
+    font-size: 17px;
+    margin: 0 0 20px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .menu-item{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap: 14px;
+    padding: 11px 0;
+    border-bottom: 1px dashed rgba(248,236,217,0.15);
+    font-size: 15px;
+  }
+  .menu-item:last-child{ border-bottom:none; }
+  .menu-item .name{ color: var(--cream); }
+  .menu-item .price{ font-family:'Barlow Condensed', sans-serif; font-weight:700; color: var(--marigold); white-space:nowrap; }
+  .menu-note{
+    margin-top: 40px;
+    text-align:center;
+    font-family:'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    color: rgba(248,236,217,0.6);
+    letter-spacing: .5px;
+  }
+
+  /* ---------- REVIEWS ---------- */
+  .reviews{ background: var(--charcoal-2); }
+  .review-scroller{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .review-card{
+    background: var(--charcoal);
+    border-radius: 10px;
+    padding: 26px 24px;
+    border: 1px solid rgba(242,163,15,0.15);
+    position:relative;
+  }
+  .review-card::before{
+    content: "\201C";
+    font-family:'Pacifico', cursive;
+    font-size: 50px;
+    color: var(--chili);
+    position:absolute; top: 8px; right: 18px;
+    opacity: .5;
+  }
+  .review-stars{ color: var(--marigold); letter-spacing: 2px; font-size: 14px; margin-bottom: 12px; }
+  .review-text{ font-size: 14.5px; line-height: 1.7; color: rgba(248,236,217,0.9); margin: 0 0 16px; }
+  .review-name{ font-family:'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; color: var(--marigold); }
+  .review-meta{ font-size: 11.5px; color: rgba(248,236,217,0.5); margin-top: 2px; }
+
+  /* ---------- VISIT ---------- */
+  .visit{
+    background: linear-gradient(135deg, var(--chili) 0%, var(--chili-deep) 100%);
+    text-align:center;
+  }
+  .visit .eyebrow{ color: rgba(255,255,255,0.85); }
+  .visit h2{ color: var(--cream); }
+  .visit p{ max-width: 580px; margin: 0 auto 20px; color: rgba(255,255,255,0.9); line-height: 1.8; font-size: 16px; }
+  .locations{ display:flex; gap: 20px; justify-content:center; flex-wrap:wrap; margin: 30px 0 40px; }
+  .location-card{
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    padding: 18px 26px;
+    font-family:'Barlow Condensed', sans-serif;
+  }
+  .location-card .lname{ font-weight:700; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; color: var(--cream); }
+  .location-card .laddr{ font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding: 60px 6vw 34px;
+    background: var(--charcoal);
+  }
+  .foot-grid{ display:grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  @media (max-width: 760px){ .foot-grid{ grid-template-columns: 1fr; } }
+  footer h4{ font-family:'Barlow Condensed', sans-serif; text-transform:uppercase; letter-spacing:2px; font-size: 13px; color: var(--marigold); margin-bottom: 14px; }
+  footer p{ font-size: 13.5px; color: rgba(248,236,217,0.65); line-height: 1.8; margin:0; }
+  .foot-bottom{
+    border-top: 1px solid rgba(242,163,15,0.15);
+    padding-top: 20px;
+    font-family:'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    color: rgba(248,236,217,0.5);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="picado">
+  <div class="flag"></div><div class="flag"></div><div class="flag"></div><div class="flag"></div>
+  <div class="flag"></div><div class="flag"></div><div class="flag"></div><div class="flag"></div>
+  <div class="flag"></div><div class="flag"></div><div class="flag"></div><div class="flag"></div>
+  <div class="flag"></div><div class="flag"></div><div class="flag"></div><div class="flag"></div>
+</div>
+
+<nav>
+  <div class="brand">
+    <div class="brand-badge">B</div>
+    <div class="brand-name">BIRRIA <span>LES</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#menu">Menu</a>
+    <a href="#why">Why Us</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#visit">Locations</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="badges-row">
+    <span class="badge halal">100% Halal</span>
+    <span class="badge fresh">Made Fresh Daily</span>
+    <span class="badge spots">2 LES Locations</span>
+  </div>
+  <h1 class="hero-title">
+    <span class="l1">BIRRIA</span>
+    <span class="l2">Lower East Side</span>
+  </h1>
+  <p class="hero-sub">Slow-simmered beef, chicken, and shrimp birria, folded into crispy tacos, mulitas, and quesadillas — and dunked straight into rich consomé. Fast, fresh, and 100% halal.</p>
+  <div class="hero-ctas">
+    <a class="btn btn-chili" href="#menu">View the Menu</a>
+    <a class="btn btn-outline" href="#visit">Find a Location</a>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <span class="eyebrow">The Birria LES Difference</span>
+  <h2>Why the Line Moves Fast<br>and Never Stops</h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <span class="icon">🌮</span>
+      <h3>Beef, Chicken &amp; Shrimp</h3>
+      <p>Choose your protein — or go surf &amp; turf. Every taco, mulita, and slider is built to order, never sitting under a heat lamp.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">☪️</span>
+      <h3>100% Halal</h3>
+      <p>Every cut of meat on the menu is halal, so the whole table can order whatever looks good — no exceptions to track.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">🍲</span>
+      <h3>Consomé for Dipping</h3>
+      <p>Rich, deep-red birria broth on the side, made for dunking every last bite of taco, quesadilla, and mulita.</p>
+    </div>
+    <div class="why-card">
+      <span class="icon">⚡</span>
+      <h3>In and Out, Fast</h3>
+      <p>Order at the counter, and most plates hit the pass in fifteen minutes or less — even when the line's out the door.</p>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="menu">
+  <span class="eyebrow">On the Menu</span>
+  <h2>Pick Your Protein.<br>Pick Your Format.</h2>
+  <div class="menu-groups">
+
+    <div class="menu-group">
+      <h3>Tacos</h3>
+      <div class="menu-item"><span class="name">Beef Birria Taco</span><span class="price">$5</span></div>
+      <div class="menu-item"><span class="name">Chicken Birria Taco</span><span class="price">$5</span></div>
+      <div class="menu-item"><span class="name">Shrimp Taco w/ Cheese</span><span class="price">$7</span></div>
+      <div class="menu-item"><span class="name">Surf &amp; Turf Taco w/ Cheese</span><span class="price">$8</span></div>
+    </div>
+
+    <div class="menu-group">
+      <h3>Tostadas</h3>
+      <div class="menu-item"><span class="name">Beef Tostada</span><span class="price">$4</span></div>
+      <div class="menu-item"><span class="name">Chicken Tostada</span><span class="price">$4</span></div>
+      <div class="menu-item"><span class="name">Shrimp Tostada</span><span class="price">$5</span></div>
+      <div class="menu-item"><span class="name">Surf &amp; Turf Tostada</span><span class="price">$6</span></div>
+    </div>
+
+    <div class="menu-group">
+      <h3>Mulitas</h3>
+      <div class="menu-item"><span class="name">Beef Mulita</span><span class="price">$5</span></div>
+      <div class="menu-item"><span class="name">Chicken Mulita</span><span class="price">$5</span></div>
+      <div class="menu-item"><span class="name">Shrimp Mulita</span><span class="price">$6</span></div>
+      <div class="menu-item"><span class="name">Surf &amp; Turf Mulita</span><span class="price">$7</span></div>
+    </div>
+
+    <div class="menu-group">
+      <h3>Sliders</h3>
+      <div class="menu-item"><span class="name">Beef Slider w/ Cheese</span><span class="price">$5</span></div>
+      <div class="menu-item"><span class="name">Chicken Slider w/ Cheese</span><span class="price">$5</span></div>
+      <div class="menu-item"><span class="name">Shrimp Slider w/ Cheese</span><span class="price">$6</span></div>
+      <div class="menu-item"><span class="name">Surf &amp; Turf Slider w/ Cheese</span><span class="price">$7</span></div>
+    </div>
+
+    <div class="menu-group">
+      <h3>Loaded Nachos &amp; Fries</h3>
+      <div class="menu-item"><span class="name">Beef or Chicken Nachos</span><span class="price">$10</span></div>
+      <div class="menu-item"><span class="name">Shrimp Nachos</span><span class="price">$12</span></div>
+      <div class="menu-item"><span class="name">Surf &amp; Turf Nachos</span><span class="price">$14</span></div>
+      <div class="menu-item"><span class="name">Loaded Fries, Beef or Chicken</span><span class="price">$10</span></div>
+    </div>
+
+    <div class="menu-group">
+      <h3>Consomé &amp; Esquite</h3>
+      <div class="menu-item"><span class="name">Consomé, Small</span><span class="price">$4</span></div>
+      <div class="menu-item"><span class="name">Consomé, Large</span><span class="price">$6</span></div>
+      <div class="menu-item"><span class="name">Esquite (Street Corn), Small</span><span class="price">$4</span></div>
+      <div class="menu-item"><span class="name">Esquite (Street Corn), Large</span><span class="price">$6</span></div>
+    </div>
+
+  </div>
+  <p class="menu-note">Add cheese or flaming hot Cheetos to any item for $1</p>
+</section>
+
+<section class="reviews" id="reviews">
+  <span class="eyebrow">From the Regulars</span>
+  <h2>What Everyone's Saying</h2>
+  <div class="review-scroller">
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Top notch tacos with fast service. The al pastor, chicken, and beef are all great — generous filling, cooked to order. Max wait was about 15 minutes.</p>
+      <div class="review-name">Local Guide</div>
+      <div class="review-meta">2 visits in one week</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">We saw Birria LES at the holiday markets, but the store location was the move — and all their locations are halal.</p>
+      <div class="review-name">Yu Jin In</div>
+      <div class="review-meta">Local Guide · 6 months ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">I usually go to the Rivington St location, but wandered over to St. Marks — the menu innovations there are astonishing, including birria sliders.</p>
+      <div class="review-name">Zaineb Haider</div>
+      <div class="review-meta">Local Guide · 7 months ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">My favorite spot on St. Marks Street. The tostadas have crunchy shells with moist, tasty beef — everything here is full of flavor and always fresh.</p>
+      <div class="review-name">Pulsar</div>
+      <div class="review-meta">Local Guide · 6 months ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Dropped by on a chill Tuesday — no crowds, just tacos. The sauces had a nice kick and the vibe was super laid-back.</p>
+      <div class="review-name">Mucahit Ege</div>
+      <div class="review-meta">Local Guide · a year ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Amazing birria tacos and consomé — best I've had outside of Mexico. Service was great, and the food came out quickly and piping hot.</p>
+      <div class="review-name">Vaughn Highfield</div>
+      <div class="review-meta">Local Guide · 5 months ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Always a hit, never a miss — the best Mexican spot I've been to, with extra points for being halal. Try the birria taco, sliders, and loaded elotes.</p>
+      <div class="review-name">HamsiTX</div>
+      <div class="review-meta">Local Guide · 7 months ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">The birria tacos are exceptionally good after dipping in the consomé. A flavorful combo you shouldn't miss — and all the meat is halal.</p>
+      <div class="review-name">Ruby Chan</div>
+      <div class="review-meta">Local Guide · 2 years ago</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <span class="eyebrow">Come Find Us</span>
+  <h2>Two Spots. One Birria.</h2>
+  <p>Both locations run the full menu, both are 100% halal, and both move fast even when the line's out the door.</p>
+  <div class="locations">
+    <div class="location-card">
+      <div class="lname">St. Marks Place</div>
+      <div class="laddr">East Village, New York</div>
+    </div>
+    <div class="location-card">
+      <div class="lname">Rivington Street</div>
+      <div class="laddr">Lower East Side, New York</div>
+    </div>
+  </div>
+  <div class="hero-ctas">
+    <a class="btn btn-chili" style="background: var(--charcoal); box-shadow: 0 6px 0 #000;" href="#">Get Directions</a>
+    <a class="btn btn-outline" style="border-color: var(--cream); color: var(--cream);" href="#">Order Online</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <h4>Birria LES</h4>
+      <p>Slow-simmered halal birria, served fast, across two Lower East Side counters. Beef, chicken, shrimp — pick your protein and dip it all in consomé.</p>
+    </div>
+    <div>
+      <h4>Hours</h4>
+      <p>Daily — 11am to 10pm<br>Cash and card accepted</p>
+    </div>
+    <div>
+      <h4>Good to Know</h4>
+      <p>100% Halal<br>Add cheese or hot Cheetos to anything</p>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© Birria LES</span>
+    <span>Site built for illustrative purposes.</span>
+  </div>
+</footer>
+
+</body>
+</html>
